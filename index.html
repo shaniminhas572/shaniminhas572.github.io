@@ -19,19 +19,50 @@
   </div>
 </header>
 
-<main class="wrap">
-  <p class="intro">Honest reviews of everyday tech and household gear, based on what's actually used day to day.</p>
+<section class="hero">
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <p class="eyebrow-mark">Tested on a desk, not in a lab</p>
+      <h1>Everyday tech, tried before it's recommended</h1>
+      <p class="intro">Honest reviews of the phones, chargers, and household gear people actually use day to day — written after using them, not after reading the spec sheet.</p>
+      <div class="hero-links">
+        <a href="#latest">Read the latest review</a>
+        <a href="/about.html">Why this site exists</a>
+      </div>
+    </div>
 
+    <div class="device-stage">
+      <div class="device">
+        <div class="device-edge"></div>
+        <div class="device-body"></div>
+        <div class="device-screen">
+          <div class="readout">
+            Latest verdict
+            <strong>8.2 / 10</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap" id="latest">
   <ul class="post-list">
     <li>
-  <span class="post-date">Phone reviews</span>
-  <h2><a href="/posts/oneplus-13r-still-worth-buying-2026.html">Is the OnePlus 13R Still Worth Buying in 2026?</a></h2>
-  <p class="post-excerpt">A year and a half after launch, here's an honest look at whether the OnePlus 13R still holds up.</p>
-</li>
+      <span class="verdict" style="--score: 82;">8.2</span>
+      <div>
+        <p class="post-date">Phone reviews</p>
+        <h2><a href="/posts/oneplus-13r-still-worth-buying-2026.html">Is the OnePlus 13R Still Worth Buying in 2026?</a></h2>
+        <p class="post-excerpt">A year and a half after launch, here's an honest look at whether the OnePlus 13R still holds up.</p>
+      </div>
+    </li>
     <li>
-      <span class="post-date">First review</span>
-      <h2><a href="/posts/hello-world.html">Welcome to flinvex</a></h2>
-      <p class="post-excerpt">Why this site exists, and what kind of reviews to expect here.</p>
+      <span class="verdict" style="--score: 60;">—</span>
+      <div>
+        <p class="post-date">First review</p>
+        <h2><a href="/posts/hello-world.html">Welcome to flinvex</a></h2>
+        <p class="post-excerpt">Why this site exists, and what kind of reviews to expect here.</p>
+      </div>
     </li>
   </ul>
 </main>
@@ -41,6 +72,29 @@
     &copy; 2026 flinvex
   </div>
 </footer>
+
+<script>
+  // Subtle interactive tilt on the hero device — responds to pointer position.
+  // No effect if the visitor prefers reduced motion, or on touch-only devices.
+  (function () {
+    var stage = document.querySelector('.device-stage');
+    var device = document.querySelector('.device');
+    if (!stage || !device) return;
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || !window.matchMedia('(hover: hover)').matches) return;
+
+    stage.addEventListener('mousemove', function (e) {
+      var rect = stage.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      device.style.transform =
+        'rotateY(' + (-22 + x * 14) + 'deg) rotateX(' + (6 - y * 10) + 'deg)';
+    });
+    stage.addEventListener('mouseleave', function () {
+      device.style.transform = 'rotateY(-22deg) rotateX(6deg)';
+    });
+  })();
+</script>
 
 </body>
 </html>
